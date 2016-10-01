@@ -1,0 +1,49 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm" version "1.1.1"
+}
+apply plugin: 'maven'
+apply plugin: 'application'
+
+group = 'reddit2s3'
+version = '0.0.1'
+
+description = """com.upwork reddit-to-s3"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// Note the Kt suffix!
+mainClassName = 'reddit2s3.MainKt'
+
+defaultTasks 'run'
+run {
+    if ( project.hasProperty("appArgs") ) {
+        args Eval.me(appArgs)
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'reddit2s3.MainKt'
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+
+repositories {
+     maven { url "https://artifactory.genohm.com/artifactory/plugins-snapshot" }
+     maven { url "https://artifactory.genohm.com/artifactory/plugins-release" }
+     maven { url "http://maven.vaadin.com/vaadin-addons" }
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+
+dependencies {
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version:'1.0.4'
+    compile group: 'io.reactivex', name: 'rxkotlin', version:'0.60.0'
+    compile group: 'io.reactivex', name: 'rxjava', version:'1.2.0'
+    compile group: 'commons-io', name: 'commons-io', version:'2.5'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk', version:'1.11.38'
+    compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-kotlin', version:'2.7.5'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version:'2.7.5'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:'2.7.5'
+    compile group: 'com.beust', name: 'jcommander', version:'1.58'
+}

@@ -1,19 +1,41 @@
-Data fetched into /var/folders/p8/pwmtjbxn5mb499qktklqtbmc0000gn/T/37372c2f-3fd6-487e-bb1b-4970191f75e83203252563646457330.json
-Writing to file /var/folders/p8/pwmtjbxn5mb499qktklqtbmc0000gn/T/6653ccf0-9ab8-4d2e-a05d-1927db2a6d094415100384521119879.txt
-Append line 552qla		https://speakerdeck.com/marioariasc/functional-programming-in-kotlin-with-funktionale-1
-Append line 556wtn		https://github.com/JoelW-S/groothy
+# Reddit To S3: Kotlin
+
+A demo application to fetch data from Reddit and upload it into an S3 bucket
+
+## Prerequisites
+
+## Running the demo
+
+Building is easy:
+
+```
+./gradlew build
+```
+
+This builds a runnable jar which can be executed from the project root directory as:
+
+```
+java -jar build/libs/reddit-to-s3-kotlin-0.0.1.jar -t Kotlin -b reddit2s3
+```
+
+The application can also be run directly from gradle, however there is a small quirk for the command line args as the
+gradle application plugin doesn't support this natively. In the gradle buildscript we've foreseen an 'appArgs' argument
+which does the trick.
+
+To run from gradle
+
+```
+./gradlew run -PappArgs="['-t', 'Kotlin', '-b', 'reddit2s3']"
+```
+
+The output should be something like
+
+To run from the jar
+
+
+
+```
 Uploading a new object to S3 from a file
 
-File 6653ccf0-9ab8-4d2e-a05d-1927db2a6d094415100384521119879.txt_30092016_101542.json uploaded into bucket amphi-test
-
-Example exceptions:
-
-Amazon bucket exception
-
-    Caught an AmazonServiceException, which means your request made it to Amazon S3, but was rejected with an error response for some reason.
-    Error Message:    The specified bucket does not exist (Service: Amazon S3; Status Code: 404; Error Code: NoSuchBucket; Request ID: 7ABBEF3D8908F2BC)
-    HTTP Status Code: 404
-    AWS Error Code:   NoSuchBucket
-    Error Type:       Client
-    Request ID:       7ABBEF3D8908F2BC
-
+Stored comments from https://www.reddit.com/r/Kotlin/comments/.json in S3 bucket reddit2s3
+```
